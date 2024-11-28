@@ -1,0 +1,35 @@
+header{
+    background-color: #6c757d;
+    color: #FFF;
+    text-align: center;
+}
+
+.card-header {
+    background-color: #6c757d;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.card-body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    padding: 3px; /* Reduz o espaçamento interno geral */
+    border-radius: 5px; /* Ajusta o arredondamento */
+}
+
+textarea, input {
+    font-size: 13px; /* Ajusta o tamanho do texto */
+}
+
+.textareaMain{
+      height: 170px;
+}
+
+.container-fluid {
+    padding: 15px; /* Reduz o espaçamento externo geral */
+    max-width: 100%; /* Evita ultrapassar os limites */
+    overflow-x: hidden; /* Remove a barra de rolagem horizontal */
+}
