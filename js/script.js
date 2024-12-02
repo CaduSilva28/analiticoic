@@ -9,6 +9,7 @@ const selectElement = document.querySelector('#mySelect');
 let fileFull;
 let deReader;
 let fileXml;
+let exectuteSelect = false;
 
 //Importando as funções
 import { 
@@ -37,6 +38,7 @@ file.addEventListener('change', function() {
 
       //Executa a função que popula o SELECT
       fnSelect(fileXml,selectElement);
+      exectuteSelect = true;
 
       selectElement.value = "SRT";
       selectElement.dispatchEvent(new Event("change"));
@@ -61,7 +63,7 @@ selectElement.addEventListener("change", () => {
   const nameIC = deFlow?.value;
 
   //Retorna o root do xml
-  const rootXml = fnRoot(fileXml,nmFlow);
+  const rootXml = fnRoot(fileXml,nmFlow,exectuteSelect);
 
   const deFileStringIC = fnICXml(rootXml,nameIC);
 

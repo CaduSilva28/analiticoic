@@ -139,7 +139,7 @@ export const fnSelect = (fileXml,selectElement) => {
 }
 
 //Função que retorna o root do fluxo selecionado
-export const fnRoot = (file,nameFlow) => {
+export const fnRoot = (file,nameFlow,exectuteSelect) => {
   const mxFile = file.querySelectorAll("mxfile");
   const diagrams = mxFile[0].querySelectorAll("diagram");
   let selectedDiagram;
@@ -150,6 +150,11 @@ export const fnRoot = (file,nameFlow) => {
     //Parse o XML para DOM (se ainda não for um documento XML)
     const root1 = selectedDiagram[0].querySelector("mxGraphModel").querySelector("root");
     const root2 = selectedDiagram[1].querySelector("mxGraphModel").querySelector("root");
+
+    //Se já executou o select na primeira vez, não adiciona o filho no arquivo princial
+    if(exectuteSelect){
+      return root1;
+    };
 
     //Adicione os filhos de root2 a root1
     Array.from(root2.children).forEach((child) => {
