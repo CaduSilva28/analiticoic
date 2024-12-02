@@ -1,20 +1,11 @@
 //Função criada para receber o texto XML e retornar apenas os ICs válidos
 export const fnICXml = (file,nameIC) => {
-    const fileXml = new DOMParser().parseFromString(file,'text/xml');
-    const deGeneralXMLFull = fileXml.querySelectorAll("mxfile");
-  
     let xmlfinal = '';
     let deNameIC = nameIC + '.';
-  
-    //Pegando o xml geral que será usado posteriormente
-    const deGeneralXML = deGeneralXMLFull[0]
-      .querySelector("diagram")
-      .querySelector("mxGraphModel")
-      .querySelector("root");
-  
+    
     //Selecionando os campos separadamente para validação
-    const mxCells = deGeneralXML.querySelectorAll("mxCell");
-    const userObject = deGeneralXML.querySelectorAll("UserObject");
+    const mxCells = file.querySelectorAll("mxCell");
+    const userObject = file.querySelectorAll("UserObject");
   
     //filtrando os mxCells que são os losangos usados para dizer se o usuário passou ou não por tal IC
     //Os ICs desses losangos devem ser ignorados no código para não aparecerem duplicados na validação
@@ -109,4 +100,49 @@ export const fnConvertDezena = (value) => {
     }
   
     return dataIcInterval;
+};
+
+//Função para retornar uma lista com as jornadas
+export const fnListFlow = (value) => {
+  const mxFile = value.querySelectorAll("mxfile");
+  const diagram = mxFile[0].querySelectorAll("diagram");
+
+  //nomes que devem ser ignorados na listagem
+  const flowIgnore = [ 'capa', 'legenda', 'regras' ];
+  const arrayFlow = [];
+
+  diagram?.forEach(item => {
+    let atribute = item?.getAttribute("name").toLowerCase();
+
+    if(!flowIgnore.some(item => atribute.includes(item))){
+      arrayFlow.push({ "value": atribute.toUpperCase().substring(0,3).trim(), "text": item?.getAttribute("name") });
+    };
+  });
+
+  //retorna um array com toda lista de fluxo
+  return arrayFlow;
+};
+
+
+//função para preencer o Select
+export const fnSelect = (fileXml,selectElement) => {
+  //Array com os valores
+  const optionsArray = fnListFlow(fileXml)  
+
+  //Itera sobre o array e adiciona as opções ao <select>
+  optionsArray.forEach(option => {
+    const newOption = document.createElement('option'); 
+    newOption.value = option.value;
+    newOption.textContent = option.text;
+    selectElement.appendChild(newOption);
+  });
+}
+
+//Função que retorna o root do fluxo selecionado
+export const fnRoot = (file,nameFlow) => {
+  
+  const mxFile = file.querySelectorAll("mxfile");
+  const diagrams = mxFile[0].querySelectorAll("diagram");
+  const selectedDiagram = Array.from(diagrams).find(item => item.getAttribute("name") === nameFlow);
+  return selectedDiagram.querySelector("mxGraphModel").querySelector("root");
 };
