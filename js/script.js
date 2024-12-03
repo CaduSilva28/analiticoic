@@ -96,7 +96,7 @@ selectElement.addEventListener("change", () => {
 
 //Botão para limpar todos os campos da tela.
 document.getElementById("clearFieldsBtn").addEventListener("click", function () {
-  const inputs = document.querySelectorAll("textarea, input");
+  const inputs = document.querySelectorAll("textarea, input, select");
   
   //Limpa todos os valores
   inputs.forEach(field => {
