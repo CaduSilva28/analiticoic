@@ -70,7 +70,7 @@ selectElement.addEventListener("change", () => {
   const deIcFull = fnGetIC(nameIC,deFileStringIC);
 
   if(!deIcFull){
-    alert("Arquivo fora do padrão: \n- Revise se o arquivo contém o nome do IC \n- Revise se o nome do IC está contido no arquivo \n- Revise se o arquivo contém algum IC")
+    alert("Nenhum IC encontrado neste fluxo");
   };
   
   const arrayDist = fnDistinct(deIcFull).arrayDist;
