@@ -96,16 +96,6 @@ selectElement.addEventListener("change", () => {
 
 //Botão para limpar todos os campos da tela.
 document.getElementById("clearFieldsBtn").addEventListener("click", function () {
-  const inputs = document.querySelectorAll("textarea, input, select");
-  
-  //Limpa todos os valores
-  inputs.forEach(field => {
-    //Limpa o campo de upload
-    if (field.type === "file") {
-      field.value = ""; 
-    //Limpa textareas e outros inputs
-    } else {
-      field.value = ""; 
-    }
-  });
+  //Recarrega tudo e deleta todos os campos em dela
+  location.reload();
 });
