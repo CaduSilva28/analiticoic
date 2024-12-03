@@ -38,10 +38,10 @@ file.addEventListener('change', function() {
 
       //Executa a função que popula o SELECT
       fnSelect(fileXml,selectElement);
-      exectuteSelect = true;
-
+      
       selectElement.value = "SRT";
       selectElement.dispatchEvent(new Event("change"));
+      exectuteSelect = true;
     });
 
     if(fileFull){
