@@ -94,5 +94,5 @@ selectElement.addEventListener("change", () => {
 //Botão para limpar todos os campos da tela.
 document.getElementById("clearFieldsBtn").addEventListener("click", function () {
   //Recarrega tudo e deleta todos os campos em dela
-  location.reload();
+  location.reload(true);
 });
