@@ -25,12 +25,13 @@ import {
 } from "./manipulateXml.js";
 
 //Assim que eu subir um arquivo, eu atualizo o meu select
+
 file.addEventListener('change', function() {
   fileFull = this.files[0];
   deReader = new FileReader();
 
   if(fileFull.type != "text/xml"){
-    alert("Este arquvo não está no formato xml!");
+    alert("Este arquivo não está no formato xml!");
   }else{ 
     //Pegar este conteúdo e usar na função
     deReader.addEventListener('load', function() {
@@ -51,7 +52,6 @@ file.addEventListener('change', function() {
 
 //A cada alteração no select, eu devo carregar os dados do fluxo em questão em tela
 selectElement.addEventListener("change", () => {
-
   const elementSelect = selectElement.value;
 
   //Retorna o nome do fluxo
