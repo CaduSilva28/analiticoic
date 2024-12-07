@@ -109,15 +109,23 @@ export const fnListFlow = (value) => {
 
   //nomes que devem ser ignorados na listagem
   const flowIgnore = [ 'capa', 'legenda', 'regras', 'srt' ];
-  const arrayFlow = [{ "value": "SRT", "text": "SRT - Consolidado" }];
+  const arrayFlow = [];
 
   diagram?.forEach(item => {
     let atribute = item?.getAttribute("name").toLowerCase();
 
-    if(!flowIgnore.some(item => atribute.includes(item))){
+    //Só vai inserir o SRT - Consolidado caso venha algum SRT no arquivo
+    //Se não vier, não será inserido o SRT consolidado
+    if(atribute.includes('srt') && !arrayFlow.find(item => item.value == "SRT")){
+      arrayFlow.push({ "value": "SRT", "text": "SRT - Consolidado" });
+    }
+    else if(!flowIgnore.some(item => atribute.includes(item))){
       arrayFlow.push({ "value": atribute.toUpperCase().substring(0,3).trim(), "text": item?.getAttribute("name") });
     };
   });
+
+  //Deixando em ordem alfabética
+  arrayFlow.sort((a,b) => a.value.localeCompare(b.value));
 
   //retorna um array com toda lista de fluxo
   return arrayFlow;
@@ -151,15 +159,11 @@ export const fnRoot = (file,nameFlow,exectuteSelect) => {
     const root1 = selectedDiagram[0].querySelector("mxGraphModel").querySelector("root");
     const root2 = selectedDiagram[1].querySelector("mxGraphModel").querySelector("root");
 
-    //Se já executou o select na primeira vez, não adiciona o filho no arquivo princial
-    if(exectuteSelect){
-      return root1;
+    //Pega os elementos do root2 e joga para root1
+    while (root2.firstChild) {
+      console.log(root2.firstChild);
+      root1.appendChild(root2.firstChild);
     };
-
-    //Adicione os filhos de root2 a root1
-    Array.from(root2.children).forEach((child) => {
-      root1.appendChild(child.cloneNode(true)); //Clona e adiciona ao root1
-    });
 
     return root1;
   }else{

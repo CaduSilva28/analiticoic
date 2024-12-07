@@ -39,23 +39,20 @@ file.addEventListener('change', function() {
       //Executa a função que popula o SELECT
       fnSelect(fileXml,selectElement);
       
-      selectElement.value = "SRT";
+      //Dispara o evento select
       selectElement.dispatchEvent(new Event("change"));
-      exectuteSelect = true;
     });
 
     if(fileFull){
       deReader.readAsText(fileFull);
     }
   };
-
-  
 });
 
 //A cada alteração no select, eu devo carregar os dados do fluxo em questão em tela
 selectElement.addEventListener("change", () => {
 
-  const elementSelect = selectElement.value ? selectElement.value : "SRT";
+  const elementSelect = selectElement.value;
 
   //Retorna o nome do fluxo
   const deFlow = fnListFlow(fileXml)?.find(item => item.value == elementSelect);
